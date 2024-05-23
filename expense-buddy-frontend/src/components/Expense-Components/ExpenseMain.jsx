@@ -18,37 +18,36 @@ export const ExpenseMain = () => {
     setShowExpenseForm(!showExpenseForm);
   };
 
-  useEffect(() => {
-    const fetchExpenseHistory = async () => {
-      try {
-        const response = await axios.get('/expense/all', {
-          headers: {
-            Authorization: localStorage.getItem("token")
-          }
-        });
-        setExpenseHistory(response.data);
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    };
-    fetchExpenseHistory();
-  }, [])
+  const fetchExpenseHistory = async () => {
+    try {
+      const response = await axios.get('/expense/all', {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      setExpenseHistory(response.data);
+    } catch (error) {
+      console.error('Error fetching expense history:', error);
+    }
+  };
+
+  const fetchIncomeHistory = async () => {
+    try {
+      const response = await axios.get('/income/all', {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      setIncomeHistory(response.data);
+    } catch (error) {
+      console.error('Error fetching income history:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchIncomeHistory = async () => {
-      try {
-        const response = await axios.get('/income/all', {
-          headers: {
-            Authorization: localStorage.getItem("token")
-          }
-        });
-        setIncomeHistory(response.data);
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    };
+    fetchExpenseHistory();
     fetchIncomeHistory();
-  }, [])
+  }, []);
 
   return (
     <div className="container mx-auto p-4">
@@ -64,17 +63,21 @@ export const ExpenseMain = () => {
         </div>
       </div>
 
-      {showIncomeForm && <IncomeForm setShowIncomeForm={setShowIncomeForm} />}
-      {showExpenseForm && <ExpenseForm setShowExpenseForm={setShowExpenseForm} />}
+      {showIncomeForm && <IncomeForm setShowIncomeForm={setShowIncomeForm} addIncome={fetchIncomeHistory} />}
+      {showExpenseForm && <ExpenseForm setShowExpenseForm={setShowExpenseForm} addExpense={fetchExpenseHistory} />}
 
       <div className="mt-8">
         <h2 className="text-xl font-bold mb-2">Recent Income</h2>
-        <HistoryList history={incomeHistory} />
+        <div className="w-full mb-8">
+          <HistoryList history={incomeHistory} fetchHistory={fetchIncomeHistory} isIncome />
+        </div>
       </div>
 
       <div className="mt-8">
         <h2 className="text-xl font-bold mb-2">Recent Expense</h2>
-        <HistoryList history={expenseHistory} />
+        <div className="w-full mb-8">
+          <HistoryList history={expenseHistory} fetchHistory={fetchExpenseHistory} />
+        </div>
       </div>
     </div>
   );

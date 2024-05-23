@@ -3,12 +3,9 @@ const router = express.Router();
 const Expense = require('../models/Expenses');
 const Income = require('../models/Income');
 const authMiddleware = require('../middlewares/authMiddleware');
-const mongoose = require('mongoose');
 require('dotenv').config();
 
-// Get balance route
 router.get('/', authMiddleware, async (req, res) => {
-    await mongoose.connect(process.env.MONGODB_URL);
     try {
         const userId = req.user;
 

@@ -5,7 +5,7 @@ import { NavBar } from "../components/NavBar";
 
 export function IndexPage() {
     return (
-        <div className="h-screen w-screen">
+        <div className="h-screen w-screen ">
             <NavBar/>
             <Landing/>
             <AboutUs/>

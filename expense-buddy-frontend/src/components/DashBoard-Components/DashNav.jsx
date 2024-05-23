@@ -6,7 +6,7 @@ export function DashNav() {
             <div className="header--wrapper bg-white rounded-lg p-4 mb-4 flex justify-between items-center">
                 <Link to={'/dashboard'} className="header--title cursor-pointer">
                     <span className="font-bold">Primary</span>
-                    <h2 className="text-2xl font-extrabold text-purple-700">Expense Buddy</h2>
+                    <h2 className="text-2xl font-extrabold text-purple-700">Expense Explorer</h2>
                 </Link>
                 <div className="user--info flex items-center">
                     <div className="search--box bg-purple-200 rounded-lg flex items-center gap-2 px-3 py-1">

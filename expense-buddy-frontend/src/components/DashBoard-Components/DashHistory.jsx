@@ -31,17 +31,34 @@ export function DashHistory() {
     const handleSortChange = (event) => {
         const selectedOption = event.target.value;
         setSortOption(selectedOption);
+
         const today = new Date();
-        const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
-        const last7Days = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-        const lastMonth = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+        today.setHours(0, 0, 0, 0);
+
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+
+        const last7Days = new Date(today);
+        last7Days.setDate(today.getDate() - 7);
+
+        const lastMonth = new Date(today);
+        lastMonth.setMonth(today.getMonth() - 1);
+
         let sortedHistory;
         switch (selectedOption) {
             case 'today':
-                sortedHistory = history.filter((item) => new Date(item.date) >= today);
+                sortedHistory = history.filter((item) => {
+                    const itemDate = new Date(item.date);
+                    itemDate.setHours(0, 0, 0, 0);
+                    return itemDate.getTime() === today.getTime();
+                });
                 break;
             case 'yesterday':
-                sortedHistory = history.filter((item) => new Date(item.date) >= yesterday && new Date(item.date) < today);
+                sortedHistory = history.filter((item) => {
+                    const itemDate = new Date(item.date);
+                    itemDate.setHours(0, 0, 0, 0);
+                    return itemDate.getTime() === yesterday.getTime();
+                });
                 break;
             case 'last7days':
                 sortedHistory = history.filter((item) => new Date(item.date) >= last7Days);
@@ -57,7 +74,7 @@ export function DashHistory() {
 
     return (
         <div>
-            <div class="flex justify-end mb-5">
+            <div className="flex justify-end mb-5">
                 <select value={sortOption} onChange={handleSortChange} className="mt-4">
                     <option value="all">All</option>
                     <option value="today">Today</option>
@@ -96,7 +113,6 @@ export function DashHistory() {
                     </tbody>
                 </table>
                 {sortedHistory.length === 0 && <p>No history available.</p>}
-
             </div>
         </div>
     );

@@ -19,6 +19,7 @@ const expenseSchema = mongoose.Schema({
             "Telephone",
             "Pets",
             "Holidays",
+            "Recharge",
             "Kids",
             "Insurance",
             "Energy",

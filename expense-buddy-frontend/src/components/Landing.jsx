@@ -5,7 +5,7 @@ export function Landing() {
         <div className="pt-48 ml-60 w-4/5 mx-auto flex flex-row mb-40">
             <div className="landing-text w-2/5">
                 <h1 className="landTitle text-5xl pt-8 pb-8 bg-gradient-to-r from-black to-primary-100 text-transparent bg-clip-text">
-                    Welcome to Expense Buddy
+                    Welcome to Expense Explorer
                 </h1>
                 <h2 className="landSubTitle w-4/5 pb-20 text-lg font-light">
                     Empower your finances: Track, Budget, and Thrive with our Expenses
